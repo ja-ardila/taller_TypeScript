@@ -21,7 +21,7 @@ btnFiltro.onclick = () => {
     cursosTable.getElementsByTagName("tbody")[0].remove();
     let cursosFiltrados: Curso[] = ap.cursos.filter(c => c.nombre.match(text));
     mostrarCursosAprendiz(cursosFiltrados);
-}
+};
 
 mostrarDatosAprendiz(ap);
 mostrarEstadisticas(ap);
@@ -46,15 +46,18 @@ function mostrarEstadisticas(aprendiz:Aprendiz):void{
 
 function mostrarCursosAprendiz(cursos:Curso[]):void{
     let cursosTbody : HTMLElement = document.createElement("tbody");
+    let estado: string[] = cursos.map(c=>(c.calificacion>60)?'green':'red');
+    let index:number = 0;
     for(let curso of cursos)
     {
         let trElement: HTMLElement = document.createElement("tr");
         trElement.innerHTML = `<td>${curso.nombre}</td>
         <td>${curso.horas}</td>
-        <td>${curso.calificacion}</td>
+        <td style="color:${estado[index]}">${curso.calificacion}</td>
         <td>${curso.certificado}</td>
         <td>${curso.anio}</td>`;
         cursosTbody.appendChild(trElement);
+        index++;
     }
     cursosTable.appendChild(cursosTbody);
 }
